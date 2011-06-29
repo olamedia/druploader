@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="druploader" default="all"  basedir=".">
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <property name="dist" location="dist"/>
+    <description>
+        jQuery-based html5 file uploader
+    </description>
+    <target name="all" depends="druploader">
+    </target>
+    <target name="init" depends="cleanup">
+        <tstamp/>
+        <mkdir dir="${build}"/>
+    </target>
+    <target name="cleanup">
+        <delete dir="${build}"/>
+    </target>
+    <target name="druploader" depends="init">
+        <concat destfile="druploader.js" fixlastline="true" encoding="UTF-8" outputencoding="UTF-8" overwrite="true">
+            <filelist id="structure">
+                <file name="${src}/header.js"></file>
+                <file name="${src}/druploader.js"></file>
+                <file name="${src}/plugin.js"></file>
+                <file name="${src}/footer.js"></file>
+            </filelist>    
+        </concat>
+    </target>
+    <target name="minify">
+        <exec command="uglifyjs --reserved-names &quot;jQuery&quot; -o ${build}/filemanager.min.js ${build}/filemanager.js" />
+    </target>
+</project>
