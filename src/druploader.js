@@ -22,8 +22,8 @@ var druploaderPrototype = {
             var xhr = new XMLHttpRequest();
             xhr.open("POST", this.api);
             xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-            xhr.setRequestHeader("X-File-Name", file.fileName);
-            xhr.setRequestHeader("X-File-Size", file.fileSize);
+            xhr.setRequestHeader("X-File-Name", file.fileName?file.fileName:(file.name?file.name:'file'));
+            xhr.setRequestHeader("X-File-Size", file.fileSize?file.fileSize:(file.size?file.size:0));
             xhr.setRequestHeader("X-Target-Id", targetId);
             xhr.setRequestHeader("Content-Type", "multipart/form-data");
             xhr.onload = function() { 
