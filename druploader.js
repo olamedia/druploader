@@ -15,6 +15,10 @@ var druploaderPrototype = {
         this.element.ondragenter = this.dragEnterHandler;
         this.element.ondragover = this.dragOverHandler;
         $(element).bind('drop', this.dropHandler);
+        var url = $(element).attr('drop-api');
+        if (undefined != url){
+            this.api = url;
+        }
     },
     upload: function(file){
         // TODO check file drop support
