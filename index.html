@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Druploader by olamedia</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Druploader</h1>
+        <p>jQuery drag&amp;drop uploader</p>
+
+        <p class="view"><a href="https://github.com/olamedia/druploader">View the Project on GitHub <small>olamedia/druploader</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/olamedia/druploader/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/olamedia/druploader/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/olamedia/druploader">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>Dr(ag and drop )uploader is a jQuery plugin to enable drag&amp;drop upload for any element on the page.</p>
+
+<p>With one line:</p>
+
+<div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">".dropzone"</span><span class="p">).</span><span class="nx">druploader</span><span class="p">();</span>
+</pre></div>
+
+<p>Corresponding HTML code:</p>
+
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"dropzone"</span> <span class="na">drop-api=</span><span class="s">"/upload-url"</span><span class="nt">&gt;</span>
+CONTENT HERE, can include other drop zones
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+<p>HTML attribute drop-api is an URL for file upload.</p>
+
+<p>With optional html attributes:</p>
+
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"dropzone"</span> <span class="na">drop-api=</span><span class="s">"/upload-url"</span> 
+<span class="na">drop-reload=</span><span class="s">"{jQuery selector}"</span> 
+<span class="na">drop-reload-api=</span><span class="s">"{URL where to get content to replace drop-reload element}"</span><span class="nt">&gt;</span>
+CONTENT HERE, can include other drop zones
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+<p>If 'drop-reload' attribute is found, then 'drop-reload-api' URL will be used to load contents for element found by 'drop-reload' jQuery selector.</p>
+
+<h3>Backend</h3>
+
+<ul>
+<li>Read filename from header, X-File-Name</li>
+<li>Read file contents from POST body</li>
+<li>If success, return json object with field status = 0. Else return different status.</li>
+</ul><p>PHP backend:</p>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">'HTTP_X_FILE_NAME'</span><span class="p">])){</span>
+   <span class="nv">$name</span> <span class="o">=</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">'HTTP_X_FILE_NAME'</span><span class="p">];</span>
+   <span class="nv">$tmpname</span> <span class="o">=</span> <span class="nb">tempnam</span><span class="p">(</span><span class="nb">sys_get_temp_dir</span><span class="p">(),</span> <span class="s1">'upload_'</span><span class="p">);</span>
+   <span class="nv">$stream</span> <span class="o">=</span> <span class="nb">fopen</span><span class="p">(</span><span class="s1">'php://input'</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">);</span>
+   <span class="nb">file_put_contents</span><span class="p">(</span><span class="nv">$tmpname</span><span class="p">,</span> <span class="nv">$stream</span><span class="p">);</span>
+   <span class="c1">// From here $tmpname containg filename of temporary file. Now you can check mime type, size etc.</span>
+</pre></div>
+
+<p>"No errors during upload" message:</p>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="nv">$obj</span> <span class="o">=</span> <span class="k">new</span> <span class="k">stdClass</span><span class="p">();</span>
+<span class="nv">$obj</span><span class="o">-&gt;</span><span class="na">status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nb">json_encode</span><span class="p">(</span><span class="nv">$obj</span><span class="p">);</span>
+</pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/olamedia">olamedia</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
